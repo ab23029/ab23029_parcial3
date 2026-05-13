@@ -1,11 +1,5 @@
 # FASE 1: Auditoría y Teoría Aplicada
 
-# 1. Documentación Técnica 
-1.Box<Nodo>: Es un puntero inteligente que almacena el nodo en la memoria Heap (dinámica). Se utiliza aquí porque los árboles AVL son estructuras recursivas y su tamaño no se conoce en tiempo de compilación; Box otorga un tamaño fijo a la referencia.
-
-2.as_ref(): Permite inspeccionar el valor interno de un Option (si es Some o None) devolviendo una referencia al dato guardado, evitando que el compilador transfiera la propiedad (ownership) y destruya el objeto original.
-
-3.take(): Extrae el valor dentro de un Option dejando un None en su lugar de forma temporal. Es fundamental para desvincular un nodo de su posición actual sin romper las reglas de propiedad de Rust.
 
 # 2. Análisis de Rust ¿po rqué es necesario usar .take() en las funciones de rotación en lugar de una asignación directa?
 En Rust, cada recurso en memoria tiene un único dueño. Durante las rotaciones de un árbol AVL, es necesario reestructurar los enlaces de los hijos de un nodo. Si intentáramos realizar una asignación directa (por ejemplo, nodo.izquierdo = otro_nodo), el compilador generaría un error grave de Ownership porque estaríamos intentando mover un dato que aún está anclado a la estructura original. La función take() soluciona esto al extraer el subárbol de forma segura, permitiendo su reubicación en la nueva posición sin necesidad de clonar datos en memoria.
